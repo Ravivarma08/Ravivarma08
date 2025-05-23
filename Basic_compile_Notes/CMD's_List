@@ -1,0 +1,28 @@
+1.pre processor stage
+.i file
+gcc -E Hello.c -o hello.i #per preprocessor code / expands macros/ epands headers/removes comments
+
+2.compilation stage
+.s file
+    coverts per processor code to assembly code
+gcc -S hello.i -o hello.s
+
+3.assembler
+.o file
+    coverts assembly code to machine code
+    output is ELF file type (Executable and Linkable Format)
+gcc -c hello.s -o hello.o
+
+4.linker stage 
+links the libs and genrates the executable code 
+Symbol Resolution
+gcc hello.o -o hello_app
+ >> to read the comments of .o file 
+    $objdump -d *.o
+
+    4.1) what are different linkage possible i.e 1)static_linking 2)dynamic linkage
+    https://www.geeksforgeeks.org/linker/
+    how to create static libs
+    https://www.geeksforgeeks.org/how-to-create-a-static-library-in-c/
+    https://www.geeksforgeeks.org/static-vs-dynamic-libraries/
+   

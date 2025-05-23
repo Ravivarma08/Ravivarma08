@@ -1,0 +1,86 @@
+The linking process in the compilation workflow combines object files (compiled code) into a final executable or a library. The linker resolves references between object files, libraries, and external symbols that were declared but not defined within the object files. It essentially takes all the compiled parts of a program and makes them work together as a whole.
+
+Linker Process Overview:
+Input to the Linker:
+
+Object files (*.o or *.obj)
+
+Libraries (e.g., *.a, *.so, *.lib)
+
+Output of the Linker:
+
+Executable file (e.g., a.out, program.exe)
+
+Shared libraries or dynamic libraries (e.g., libexample.so)
+
+Linker Stages:
+✅ 1. Symbol Resolution
+The linker checks each object file for symbols (functions, variables) that are undefined within the current file but are defined in another.
+
+For example, if foo() is used in file1.o but defined in file2.o, the linker will find foo() in file2.o and connect them.
+
+✅ 2. Relocation
+Relocation ensures that the object files are positioned correctly in memory.
+
+Each object file has relative memory addresses for its functions and data. The linker updates these to reflect the final memory locations where functions and variables will be placed in the executable.
+
+It adjusts the code to correctly reference the final addresses.
+
+✅ 3. Library Linking
+Static Linking: If you're linking against static libraries (*.a), the linker copies the necessary code from those libraries into the executable.
+
+Dynamic Linking: If you're linking against shared libraries (*.so or *.dll), the linker only adds references to the external libraries, leaving the actual loading and linking to be done at runtime.
+
+✅ 4. Address Assignment
+The linker assigns addresses to all code and data sections. This involves determining where to place the code and variables in memory (e.g., in the .text section for code, .data for initialized data, .bss for uninitialized variables).
+
+✅ 5. Generate Executable or Library
+Once all the symbols are resolved, addresses assigned, and libraries linked, the linker outputs the final file:
+
+Executable: Ready for execution.
+
+Shared Library: Ready to be loaded by other programs.
+
+Static Library: Ready to be linked into other programs.
+
+Linking Command (Using GCC or G++)
+For static linking:
+
+bash
+Copy
+Edit
+gcc file1.o file2.o -o program
+For dynamic linking:
+
+bash
+Copy
+Edit
+gcc file1.o file2.o -o program -lexample
+Here, -lexample links the program with a library named libexample.so or libexample.a.
+
+Linker Errors:
+Some common linker errors include:
+
+Undefined reference: The linker cannot find a symbol that was declared but not defined (e.g., a function is declared but never implemented).
+
+Example error: undefined reference to 'foo'
+
+Multiple definitions: Multiple object files define the same symbol.
+
+Example error: multiple definition of 'foo'
+
+Example Workflow with GCC:
+Compilation (to object files):
+
+bash
+Copy
+Edit
+gcc -c file1.c -o file1.o
+gcc -c file2.c -o file2.o
+Linking (combine into executable):
+
+bash
+Copy
+Edit
+gcc file1.o file2.o -o my_program
+Output: my_program executable.
